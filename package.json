@@ -1,0 +1,36 @@
+{
+  "name": "vincar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.12.0 <25"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
+    "test": "tsx --test tests/domain.test.ts",
+    "test:e2e": "playwright test",
+    "build:node": "DEPLOY_TARGET=node astro build"
+  },
+  "dependencies": {
+    "@astrojs/node": "11.1.7",
+    "@astrojs/vercel": "11.0.14",
+    "astro": "7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.10.1",
+    "tsx": "4.20.6",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "@vercel/routing-utils": {
+      "path-to-regexp": "6.3.0"
+    }
+  }
+}

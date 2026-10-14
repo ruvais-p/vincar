@@ -1,0 +1,12 @@
+---
+export const prerender=false;
+import Layout from '../../layouts/Layout.astro';
+import ReportView from '../../components/ReportView.astro';
+import Icon from '../../components/Icon.astro';
+import {db,authorizedReport,saved} from '../../lib/server';
+const report=authorizedReport(Astro.locals.owner,Astro.params.reportId!);
+if(!report)return new Response('Report not found.',{status:404});
+const search=db.searches.get(report.searchId)!;
+const isSaved=saved.get(Astro.locals.owner)?.has(report.id);
+---
+<Layout title="Your private vehicle report" privatePage><div class="container private-page"><div class="report-toolbar"><a class="text-link" href="/account/">← My reports</a><div class="actions"><form method="post" action="/api/action/"><input type="hidden" name="action" value="save"/><input type="hidden" name="report" value={report.id}/><button class="button secondary">{isSaved?'Remove from shortlist':'Save to shortlist'}</button></form><a class="button secondary" id="download" href={`/api/download/?report=${report.id}`}><Icon name="download" size={18}/> Download report</a><button class="button secondary" id="print-report">Print / save PDF</button></div></div><ReportView report={report} input={`${search.input}${search.state?' · '+search.state:''}`}/><div class="notice">This report is private to your demo session. Reopening it never consumes another credit. <a href="/account/">Manage your reports and demo delivery →</a></div></div><script>import {track} from '../../lib/analytics';track('report_opened');document.querySelector('#download')?.addEventListener('click',()=>track('download_requested'));document.querySelector('#print-report')?.addEventListener('click',()=>window.print());</script></Layout>

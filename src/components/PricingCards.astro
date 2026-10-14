@@ -1,0 +1,12 @@
+---
+import {plans,money} from '../lib/config';
+import Icon from './Icon.astro';
+const {searchId}=Astro.props;
+---
+<div class="pricing-grid">{plans.map((plan,i)=><article class:list={['plan',plan.kind==='trial'&&'plan-peach',plan.kind==='compare'&&'plan-featured']}>
+  <div class="plan-heading"><span class="mini-label">{plan.kind==='report'?'PAY AS YOU GO':plan.kind==='trial'?'TRY IT FIRST':'COMPARE WITH MORE CLARITY'}</span><span class="plan-heading-tools"><Icon name={plan.kind==='report'?'file':plan.kind==='trial'?'lock':'people'}/>{plan.kind==='trial'&&<span class="plan-badge">MOST FLEXIBLE</span>}</span></div>
+  <h3>{plan.name}</h3><p class="plan-price">{money(plan.cents)}<span>{plan.kind==='trial'?' first 3 days':plan.cadence==='monthly'?' / month':' / one-time'}</span></p>
+  <p>{plan.kind==='report'?'One clear report for the car you’re considering.':plan.kind==='trial'?'Explore unlimited reports for three days, then continue monthly if it helps your search.':'Compare shortlisted cars with AI-assisted summaries and unlimited reports.'}</p>
+  <ul class="check-list">{plan.kind==='report'&&<li><Icon/>1 vehicle report</li>}{plan.kind==='trial'&&<><li><Icon/>Unlimited reports during trial</li><li><Icon/>Cancel before renewal</li></>}{plan.kind==='compare'&&<><li><Icon/>AI-assisted car comparisons</li><li><Icon/>Unlimited reports</li></>}<li><Icon/>All available report categories</li><li><Icon/>Download and revisit your reports</li></ul>
+  <a class:list={['button',i===0?'primary':'secondary']} href={searchId?`/checkout/?search=${searchId}&plan=${plan.id}`:'/#checker'}>{searchId?'Choose':'Start with'} {plan.kind==='report'?'a report':plan.kind==='trial'?'the trial':'AI Compare'} <Icon name="arrow" size={18}/></a></article>)}</div>
+<p class="pricing-note">Reports are synthetic in this demo. The trial and AI-assisted comparison plans are proposed product options; no recurring charge is collected here. Tax, renewal, and cancellation details appear before any future production confirmation.</p><p class="small centered">Proposed demo prices in USD. Full availability and AI features depend on the final provider setup.</p>

@@ -1,0 +1,53 @@
+{
+  "conditions": "Local standalone Node build. Chromium headless, 4x CPU throttle, 40ms latency, 2 MB/s down. Single sample each; NOT field p75 or INP.",
+  "results": [
+    {
+      "width": 390,
+      "lcp": 1444,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "/_astro/Layout.D3xB6MNu.css",
+          "bytes": 30654
+        },
+        {
+          "name": "/_astro/VehicleChecker.astro_astro_type_script_index_0_lang.D2tsgMPO.js",
+          "bytes": 4372
+        },
+        {
+          "name": "/_astro/analytics.DxASk5Jk.js",
+          "bytes": 414
+        },
+        {
+          "name": "/favicon.svg",
+          "bytes": 522
+        }
+      ],
+      "domContentLoaded": 174.29999999981374
+    },
+    {
+      "width": 1440,
+      "lcp": 308,
+      "cls": 0,
+      "resources": [
+        {
+          "name": "/_astro/Layout.D3xB6MNu.css",
+          "bytes": 30654
+        },
+        {
+          "name": "/_astro/VehicleChecker.astro_astro_type_script_index_0_lang.D2tsgMPO.js",
+          "bytes": 4372
+        },
+        {
+          "name": "/_astro/analytics.DxASk5Jk.js",
+          "bytes": 414
+        },
+        {
+          "name": "/favicon.svg",
+          "bytes": 522
+        }
+      ],
+      "domContentLoaded": 298
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+---
+export const prerender=false;
+import Layout from '../../../layouts/Layout.astro';
+import {outbox,digest} from '../../../lib/server';
+const token=Astro.params.token!;
+const delivery=outbox.get(digest(token));
+const valid=delivery&&!delivery.used&&delivery.expires>Date.now();
+if(!valid)Astro.response.status=410;
+---
+<Layout title="Secure demo report access" privatePage><div class="container private-page"><div class="empty-state"><h1>{valid?'Open your demo report.':'This link is no longer available.'}</h1><p>{valid?'This single-use link grants access to the associated demo reports. Continue only on a device you trust.':'The link expired or has already been used. You can still use My reports in the original browser session.'}</p>{valid?<form method="post" action="/api/action/"><input type="hidden" name="action" value="access"/><input type="hidden" name="token" value={token}/><button class="button primary">Access my report →</button></form>:<a class="button secondary" href="/account/">My reports</a>}</div></div></Layout>
